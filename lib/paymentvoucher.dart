@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class Paymentvoucher extends StatefulWidget {
   const Paymentvoucher({super.key});
 
@@ -9,6 +10,15 @@ class Paymentvoucher extends StatefulWidget {
 class _PaymentvoucherState extends State<Paymentvoucher> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Payment Voucher",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.brown,
+        foregroundColor: Colors.white,
+      ),
+    );
   }
 }

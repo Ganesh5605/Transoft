@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../Accountmaster.dart';
 import '../models/billentrymodel.dart';
 
 class Billentry extends StatefulWidget {
@@ -142,6 +143,7 @@ class _BillentryState extends State<Billentry> {
                 child: ElevatedButton(
                   onPressed: () {
                     isVisible = false;
+                    //saveData();
                     setState(() {});
                   },
                   style: ElevatedButton.styleFrom(
@@ -170,7 +172,7 @@ class _BillentryState extends State<Billentry> {
           child: Column(
             children: [
               SizedBox(
-                height: 180,
+                height: MediaQuery.of(context).size.height/3.1,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -361,6 +363,20 @@ class _BillentryState extends State<Billentry> {
                             ),
                           ),
                         ),
+                        IconButton(
+                          onPressed: () async {
+                            bool? result = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Accountmaster(),
+                              ),
+                            );
+                            if (result!) {
+                             // GetSuppMasters();
+                            }
+                          },
+                          icon: Icon(Icons.person_add),
+                        ),
                       ],
                     ),
                     SizedBox(height: 5),
@@ -423,11 +439,11 @@ class _BillentryState extends State<Billentry> {
       ratectrl.text = "";
       amountctrl.text = "";
     } else {
-      itemnamectrl.text = item[index].ltr.toString();
-      unitctrl.text = item[index].fat.toString();
-      qtyctrl.text = item[index].snf.toString();
-      ratectrl.text = item[index].degree.toString();
-      amountctrl.text = item[index].rate.toString();
+      itemnamectrl.text = item[index].Item.toString();
+      unitctrl.text = item[index].Unit.toString();
+      qtyctrl.text = item[index].Qty.toString();
+      ratectrl.text = item[index].rate.toString();
+      amountctrl.text = item[index].amount.toString();
     }
     return showDialog(
       context: context,
@@ -437,14 +453,14 @@ class _BillentryState extends State<Billentry> {
             builder: (context, setStateA) {
               return Dialog(
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(maxHeight: 400),
+                  constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         children: [
                           Text(
-                            'Ltr:',
+                            'Item:',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           SizedBox(width: 10),
@@ -452,8 +468,8 @@ class _BillentryState extends State<Billentry> {
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: TextFormField(
-                                controller: qtyctrl,
-                                focusNode: qty,
+                                controller: itemnamectrl,
+                                focusNode: itemname,
                                 onChanged: (val) {
                                   if (val.isNotEmpty) {
                                     amountctrl.text =
@@ -490,6 +506,220 @@ class _BillentryState extends State<Billentry> {
                             ),
                           ),
                         ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Unit:',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextFormField(
+                                controller: unitctrl,
+                                focusNode: unit,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(10),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Qty:',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextFormField(
+                                controller: qtyctrl,
+                                focusNode: qty,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(10),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Rate:',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextFormField(
+                                controller: ratectrl,
+                                focusNode: rate,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(10),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'Amount:',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextFormField(
+                                controller: amountctrl,
+                                focusNode: amount,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.all(10),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
+                                    ),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Divider(),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  side: BorderSide(
+                                    color: Colors.brown, // Border color
+                                    width: 2, // Border width
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      8,
+                                    ), // Optional rounded corners
+                                  ),
+                                  backgroundColor:
+                                  Colors.brown, // Button background
+                                  foregroundColor:
+                                  Colors.white, // Text/icon color
+                                ),
+                                child: Text("Cancel"),
+                              ),
+                            ),
+                            Container(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if (index < 0) {
+                                    BillEntryItem newrow = new BillEntryItem(
+                                      Item: itemnamectrl.text,
+                                      Unit:unitctrl.text,
+                                      Qty: qtyctrl.text,
+                                      rate: ratectrl.text,
+                                      amount: amountctrl.text,
+                                    );
+                                    item.add(newrow);
+                                  } else {
+                                    item[index].Item =
+                                      itemnamectrl.text;
+                                    item[index].Unit =
+                                      unitctrl.text;
+                                    item[index].Qty =
+                                      qtyctrl.text;
+                                    item[index].rate =
+                                      ratectrl.text;
+
+                                    item[index].amount =
+                                      amountctrl.text;
+                                  }
+                                  Navigator.pop(context);
+                                  setState(() {});
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  side: BorderSide(
+                                    color: Colors.brown, // Border color
+                                    width: 2, // Border width
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      8,
+                                    ), // Optional rounded corners
+                                  ),
+                                  backgroundColor:
+                                  Colors.brown, // Button background
+                                  foregroundColor:
+                                  Colors.white, // Text/icon color
+                                ),
+                                child: Text(index < 0 ? "Add" : 'Update'),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

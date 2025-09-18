@@ -1,16 +1,14 @@
 class BillEntryItem {
-  final String ltr;
-  final String fat;
-  final String snf;
-  final String degree;
-  final String rate;
-  final String amount;
+   String Item;
+   String Unit;
+   String Qty;
+   String rate;
+   String amount;
 
   BillEntryItem({
-    required this.ltr,
-    required this.fat,
-    required this.snf,
-    required this.degree,
+    required this.Item,
+    required this.Unit,
+    required this.Qty,
     required this.rate,
     required this.amount,
   });
@@ -18,10 +16,9 @@ class BillEntryItem {
   // Convert model to JSON
   Map<String, dynamic> toJson() {
     return {
-      'ltr': ltr,
-      'fat': fat,
-      'snf': snf,
-      'degree': degree,
+      'item': Item,
+      'Unit': Unit,
+      'qty': Qty,
       'rate': rate,
       'amount': amount,
     };
@@ -30,10 +27,9 @@ class BillEntryItem {
   // Create model from JSON
   factory BillEntryItem.fromJson(Map<String, dynamic> json) {
     return BillEntryItem(
-      ltr: json['ltr'] ?? '',
-      fat: json['fat'] ?? '',
-      snf: json['snf'] ?? '',
-      degree: json['degree'] ?? '',
+      Item: json['item'] ?? '',
+      Unit: json['Unit'] ?? '',
+      Qty: json['qty'] ?? '',
       rate: json['rate'] ?? '',
       amount: json['amount'] ?? '',
     );
