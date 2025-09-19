@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:transoft/paymentvoucher.dart';
 import 'package:transoft/receipts.dart';
+import 'package:transoft/shoppingpage.dart';
 
 import 'Accountmaster.dart';
 import 'Dataentrypage/billentry.dart';
@@ -30,6 +31,7 @@ class _MenupageState extends State<Menupage> {
     "Bill Print",
     "Customer Ledger",
     "Account Master",
+    "Shopping",
   ];
   List entriesIcon = [
     Icons.local_shipping_sharp,
@@ -38,6 +40,7 @@ class _MenupageState extends State<Menupage> {
     Icons.print,
     Icons.account_balance_wallet,
     Icons.account_box,
+    Icons.shopping_cart,
   ];
 
   @override
@@ -73,6 +76,8 @@ class _MenupageState extends State<Menupage> {
                     ? gotocustomerledger()
                     : index == 5
                     ? gotoAccountmater()
+                    : index == 6
+                    ? gotoshoppingpage()
                     : print("wip");
               },
               // onTap: option.onTap,
@@ -124,16 +129,32 @@ class _MenupageState extends State<Menupage> {
       MaterialPageRoute(builder: (context) => Paymentvoucher()),
     );
   }
+
   gotobillprint() {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>Billprint()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Billprint()),
+    );
   }
+
   gotocustomerledger() {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>Customerledger()));
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Customerledger()),
+    );
   }
+
   gotoAccountmater() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => Accountmaster()),
+    );
+  }
+
+  gotoshoppingpage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Shoppingpage()),
     );
   }
 }
