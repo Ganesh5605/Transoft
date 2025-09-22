@@ -17,7 +17,6 @@ class _ShoppingpageState extends State<Shoppingpage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     fetchProducts(); //pagr vr alya alya data get kraycha api la call krun
   }
@@ -29,14 +28,15 @@ class _ShoppingpageState extends State<Shoppingpage> {
 
     if (response.statusCode == 200) {
       var resp = jsonDecode(response.body);
-      print("resp--->$resp");// to check the repsonse
+      print("resp--->$resp"); // to check the repsonse
 
-      entries = (resp['products'] as List)
-          .map((e) => Product.fromJson(e))
-          .toList();
-      print("entries-->$entries");//bind all data in model for better understanding
-// JSON -> List
-      setState(() {});//entries chi list update vayla
+      entries =
+          (resp['products'] as List).map((e) => Product.fromJson(e)).toList();
+      print(
+        "entries-->$entries",
+      ); //bind all data in model for better understanding
+      // JSON -> List
+      setState(() {}); //entries chi list update vayla
     } else {
       throw Exception("Failed to load products");
     }
@@ -69,17 +69,30 @@ class _ShoppingpageState extends State<Shoppingpage> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GridView.builder(
-                  itemCount: entries.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                    childAspectRatio: 1.2,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GridView.builder(
+                    itemCount: entries.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 12,
+                      crossAxisSpacing: 12,
+                      childAspectRatio: 1.2,
+                    ),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: Card(
+                          child: Center(child: Column(
+                            children: [
+                              Image.network(entries[index].images.first),
+                              Text(entries[index].title),
+                            ],
+                          )),
+                        ),
+                      );
+                    },
                   ),
-                  itemBuilder: (context, index) {},
                 ),
               ),
             ],
